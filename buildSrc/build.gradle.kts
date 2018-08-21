@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-import org.gradle.api.internal.artifacts.BaseRepositoryFactory.PLUGIN_PORTAL_DEFAULT_URL
 import org.gradle.plugins.ide.idea.model.IdeaModel
 
 import org.gradle.kotlin.dsl.plugins.dsl.KotlinDslPlugin
@@ -26,7 +25,7 @@ import java.util.Properties
 
 
 buildscript {
-    project.apply(from = "$rootDir/../gradle/shared-with-buildSrc/mirrors.gradle.kts")
+    project.apply(from = "$rootDir/../gradle/shared-with-buildSrc/repositories.gradle.kts")
 }
 
 plugins {
@@ -71,15 +70,6 @@ subprojects {
             }
             tasks.named("check").configure { dependsOn(validateTaskProperties) }
         }
-    }
-}
-var pluginPortalUrl = (project.rootProject.extensions.extraProperties.get("repositoryMirrors") as Map<String, String>).get("gradleplugins")
-
-allprojects {
-    repositories {
-        maven(url = "https://repo.gradle.org/gradle/libs-releases")
-        maven(url = "https://repo.gradle.org/gradle/libs-snapshots")
-        maven(url = pluginPortalUrl ?: PLUGIN_PORTAL_DEFAULT_URL)
     }
 }
 

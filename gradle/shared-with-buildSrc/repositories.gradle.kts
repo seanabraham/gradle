@@ -16,23 +16,19 @@
 
 
 val repositoryMirrors = findMirrorUrls()
-rootProject.extensions.extraProperties.set("repositoryMirrors", repositoryMirrors)
 
-val gradleMirrorUrl = repositoryMirrors["gradle"]
-if (gradleMirrorUrl != null) {
-    project.allprojects {
-        buildscript.repositories {
-            maven {
-                name = "gradle-mirror"
-                url = uri(gradleMirrorUrl)
-            }
-        }
-        repositories {
-            maven {
-                name = "gradle-mirror"
-                url = uri(gradleMirrorUrl)
-            }
-        }
+project.allprojects {
+    buildscript.repositories {
+        maven(url = repositoryMirrors.getOrDefault("gradleplugins", "https://plugins.gradle.org/m2"))
+        maven(url = repositoryMirrors.getOrDefault("gradle", "https://repo.gradle.org/gradle/repo"))
+        maven(url = repositoryMirrors.getOrDefault("gradle-libs", "https://repo.gradle.org/gradle/libs"))
+        maven(url = repositoryMirrors.getOrDefault("kotlindev", "https://dl.bintray.com/kotlin/kotlin-dev"))
+    }
+    repositories {
+        maven(url = repositoryMirrors.getOrDefault("gradleplugins", "https://plugins.gradle.org/m2"))
+        maven(url = repositoryMirrors.getOrDefault("gradle", "https://repo.gradle.org/gradle/repo"))
+        maven(url = repositoryMirrors.getOrDefault("gradle-libs", "https://repo.gradle.org/gradle/libs"))
+        maven(url = repositoryMirrors.getOrDefault("kotlindev", "https://dl.bintray.com/kotlin/kotlin-dev"))
     }
 }
 
