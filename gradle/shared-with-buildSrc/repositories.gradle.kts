@@ -18,12 +18,6 @@
 val repositoryMirrors = findMirrorUrls()
 
 project.allprojects {
-    buildscript.repositories {
-        maven(url = repositoryMirrors.getOrDefault("gradleplugins", "https://plugins.gradle.org/m2"))
-        maven(url = repositoryMirrors.getOrDefault("gradle", "https://repo.gradle.org/gradle/repo"))
-        maven(url = repositoryMirrors.getOrDefault("gradle-libs", "https://repo.gradle.org/gradle/libs"))
-        maven(url = repositoryMirrors.getOrDefault("kotlindev", "https://dl.bintray.com/kotlin/kotlin-dev"))
-    }
     repositories {
         maven(url = repositoryMirrors.getOrDefault("gradleplugins", "https://plugins.gradle.org/m2"))
         maven(url = repositoryMirrors.getOrDefault("gradle", "https://repo.gradle.org/gradle/repo"))
